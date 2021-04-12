@@ -8,7 +8,6 @@ import org.apereo.cas.services.ServicesManager;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
@@ -29,7 +28,6 @@ import java.util.stream.Collectors;
 @RestController("domainController")
 @RequestMapping(path="api/domains", produces = MediaType.APPLICATION_JSON_VALUE)
 @RequiredArgsConstructor
-@Slf4j
 public class DomainController {
 
     private final MgmtManagerFactory<? extends ServicesManager> managerFactory;

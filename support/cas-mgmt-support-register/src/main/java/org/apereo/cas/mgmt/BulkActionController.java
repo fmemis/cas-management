@@ -20,11 +20,10 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.text.MessageFormat;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * Controller for bulk operations.
@@ -57,7 +56,7 @@ public class BulkActionController {
                             final @RequestBody String[] services) throws IllegalStateException, IllegalAccessException {
         val casUserProfile = CasUserProfile.from(authentication);
         val email = casUserProfile.getEmail();
-        val timestamp = new Date().getTime();
+        val timestamp = LocalDateTime.now(ZoneId.systemDefault());
         val clone = managementProperties.getDelegated().getUserReposDir() + "/bulk-" + timestamp;
         val git = repositoryFactory.clone(clone);
         val manager = managerFactory.from(git);
@@ -106,7 +105,7 @@ public class BulkActionController {
                           final @RequestBody String[] services) throws IllegalStateException {
         val casUserProfile = CasUserProfile.from(authentication);
         val email = casUserProfile.getEmail();
-        val timestamp = new Date().getTime();
+        val timestamp = LocalDateTime.now(ZoneId.systemDefault());
         val clone = managementProperties.getDelegated().getUserReposDir() + "/bulk-" + timestamp;
         val git = repositoryFactory.clone(clone);
         val manager = managerFactory.from(git);
@@ -142,7 +141,7 @@ public class BulkActionController {
 
     private void commitBranch(final GitUtil git, final CasUserProfile casUserProfile, final String op, final String msg) {
         try {
-            val timestamp = new Date().getTime();
+            val timestamp = LocalDateTime.now(ZoneId.systemDefault());
             val branchName = op + "-" + casUserProfile.getEmail() + "-" + timestamp;
             git.addWorkingChanges();
             val commit = git.commit(casUserProfile, msg);
@@ -178,12 +177,6 @@ public class BulkActionController {
 
     private RegisteredServiceContact owner(final List<RegisteredServiceContact> contacts, final String email) {
         return contacts.stream().filter(c -> email.equalsIgnoreCase(c.getEmail())).findAny().orElse(null);
-    }
-
-    private String names(final Stream<RegisteredServiceContact> stream) {
-        return stream
-                .map(s -> s.getName() != null ? s.getName() : s.getEmail())
-                .collect(Collectors.joining(", "));
     }
 
 }

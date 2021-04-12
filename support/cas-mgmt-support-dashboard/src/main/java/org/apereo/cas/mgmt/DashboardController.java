@@ -8,9 +8,7 @@ import org.apereo.cas.mgmt.domain.Attributes;
 import org.apereo.cas.mgmt.domain.AuditLog;
 import org.apereo.cas.mgmt.domain.Cache;
 import org.apereo.cas.mgmt.domain.Server;
-import org.apereo.cas.mgmt.domain.SsoSessionResponse;
 import org.apereo.cas.mgmt.domain.SystemHealth;
-import org.apereo.cas.util.serialization.TicketIdSanitizationUtils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
@@ -36,8 +34,8 @@ import org.springframework.web.client.RestTemplate;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.time.Instant;
 import java.util.Comparator;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -254,36 +252,26 @@ public class DashboardController {
         if (log != null) {
             val out = response.getWriter();
             response.setHeader("Content-Type", MediaType.TEXT_PLAIN_VALUE);
-            response.setHeader("Content-Disposition", "attachment; filename=audit-log-" + new Date().getTime() + ".txt");
+            response.setHeader("Content-Disposition", "attachment; filename=audit-log-" + Instant.now().toEpochMilli() + ".txt");
             log.stream().map(this::toCSV).forEach(out::println);
             out.close();
         }
     }
 
     private String toCSV(final AuditLog log) {
-        return new StringBuffer()
-               .append(log.getWhenActionWasPerformed())
-               .append("|")
-               .append(log.getClientIpAddress())
-               .append("|")
-               .append(log.getServerIpAddress())
-               .append("|")
-               .append(log.getPrincipal())
-               .append("|")
-               .append(log.getActionPerformed())
-               .append("|")
-               .append(log.getResourceOperatedUpon())
-               .append("|")
-               .append(log.getApplicationCode())
-               .toString();
-    }
-
-    private SsoSessionResponse getSsoSessions(final String serverUrl, final boolean mask) {
-        val resp = callCasServer(serverUrl, new ParameterizedTypeReference<SsoSessionResponse>() {});
-        if (mask) {
-            resp.getActiveSsoSessions().forEach(s -> s.setTicketGrantingTicket(TicketIdSanitizationUtils.sanitize(s.getTicketGrantingTicket())));
-        }
-        return resp;
+        return log.getWhenActionWasPerformed()
+                + "|"
+                + log.getClientIpAddress()
+                + "|"
+                + log.getServerIpAddress()
+                + "|"
+                + log.getPrincipal()
+                + "|"
+                + log.getActionPerformed()
+                + "|"
+                + log.getResourceOperatedUpon()
+                + "|"
+                + log.getApplicationCode();
     }
 
     private <T> T callCasServer(final String url, final ParameterizedTypeReference<T> type) {

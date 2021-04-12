@@ -6,7 +6,6 @@ import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.SneakyThrows;
-import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 import org.hjson.JsonValue;
 import org.jooq.lambda.Unchecked;
@@ -28,7 +27,6 @@ import java.util.Optional;
  * @author Misagh Moayyed
  * @since 5.2.0
  */
-@Slf4j
 public class JsonResourceAuthorizationGenerator implements AuthorizationGenerator {
 
     private final ObjectMapper objectMapper;

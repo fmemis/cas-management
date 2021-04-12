@@ -6,7 +6,6 @@ import org.apereo.cas.services.util.RegisteredServiceYamlSerializer;
 import org.apereo.cas.util.RegexUtils;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
-import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 import org.apache.commons.lang3.StringUtils;
 import org.hjson.JsonValue;
@@ -15,10 +14,10 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.regex.Pattern;
 
 /**
@@ -27,7 +26,6 @@ import java.util.regex.Pattern;
  * @author Misagh Moayyed
  * @since 5.2.0
  */
-@Slf4j
 public final class CasManagementUtils {
 
     private static final RegisteredServiceJsonSerializer JSON_SERIALIZER = new RegisteredServiceJsonSerializer();
@@ -174,7 +172,7 @@ public final class CasManagementUtils {
      * @return - formatted Date.
      */
     public static String formatDateTime(final long time) {
-        return LocalDateTime.ofInstant(new Date(time * 1000L).toInstant(),
+        return LocalDateTime.ofInstant(Instant.ofEpochMilli(time * 1000L),
                 ZoneId.systemDefault())
                 .format(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
     }

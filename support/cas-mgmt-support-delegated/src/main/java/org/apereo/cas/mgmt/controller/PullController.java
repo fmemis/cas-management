@@ -25,7 +25,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
 import java.text.MessageFormat;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.List;
 
 import static java.util.stream.Collectors.toList;
@@ -98,7 +99,7 @@ public class PullController extends AbstractVersionControlController {
         try (GitUtil git = repositoryFactory.masterRepository()) {
             git.merge(branch.getId());
             val com = git.getCommit(branch.getId());
-            val msg = "ACCEPTED by " + user.getId() + " on " + new Date().toString() + NEW_LINE_INDENT
+            val msg = "ACCEPTED by " + user.getId() + " on " + LocalDate.now(ZoneId.systemDefault()) + NEW_LINE_INDENT
                     + text.replaceAll("\\n", NEW_LINE_INDENT);
             git.appendNote(com, msg);
             sendAcceptMessage(Iterables.get(Splitter.on('/').split(branch.getName()), 2), com.getCommitterIdent().getEmailAddress());
@@ -132,7 +133,7 @@ public class PullController extends AbstractVersionControlController {
         val text = rejection.getNote();
         try (GitUtil git = repositoryFactory.masterRepository()) {
             val com = git.getCommit(branch.getId());
-            val msg = "REJECTED by " + user.getId() + " on " + new Date().toString() + NEW_LINE_INDENT
+            val msg = "REJECTED by " + user.getId() + " on " + LocalDate.now(ZoneId.systemDefault()) + NEW_LINE_INDENT
                     + text.replaceAll("\\n", NEW_LINE_INDENT);
             git.appendNote(com, msg);
 

@@ -32,6 +32,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -141,7 +142,7 @@ public class SamlController {
             throw new IllegalArgumentException("Service already registered");
         }
         val fileName = DigestUtils.sha(entityId) + ".xml";
-        Files.write(Path.of(managementProperties.getMetadataRepoDir() + "/" + fileName), xml.getBytes());
+        Files.write(Path.of(managementProperties.getMetadataRepoDir() + "/" + fileName), xml.getBytes(StandardCharsets.UTF_8));
         service.setMetadataLocation("file:/" + managementProperties.getMetadataDir() + "/" + fileName);
         return service;
     }

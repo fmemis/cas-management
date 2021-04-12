@@ -9,7 +9,6 @@ import org.apereo.cas.notifications.CommunicationsManager;
 
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
-import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -23,7 +22,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.text.MessageFormat;
-import java.util.Date;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.List;
 
 import static java.util.stream.Collectors.toList;
@@ -37,7 +37,6 @@ import static java.util.stream.Collectors.toList;
 @RestController("submitController")
 @RequestMapping(path = "api/submit", produces = MediaType.APPLICATION_JSON_VALUE)
 @RequiredArgsConstructor
-@Slf4j
 public class SubmitController {
 
     private final RepositoryFactory repositoryFactory;
@@ -59,7 +58,7 @@ public class SubmitController {
             if (git.isUndefined()) {
                 throw new IllegalArgumentException("No changes to submit");
             }
-            val timestamp = new Date().getTime();
+            val timestamp = LocalDateTime.now(ZoneId.systemDefault());
             val branchName = "submit-" + timestamp;
             val submitName = user.getId() + '_' + timestamp;
 

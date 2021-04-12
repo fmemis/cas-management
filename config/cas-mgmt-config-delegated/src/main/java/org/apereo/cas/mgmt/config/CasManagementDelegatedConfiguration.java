@@ -11,7 +11,6 @@ import org.apereo.cas.mgmt.controller.SubmitController;
 import org.apereo.cas.mgmt.factory.RepositoryFactory;
 import org.apereo.cas.notifications.CommunicationsManager;
 
-import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +30,6 @@ import java.util.Objects;
  */
 @Configuration("casManagementDelegatedConfiguration")
 @EnableConfigurationProperties({CasConfigurationProperties.class, CasManagementConfigurationProperties.class})
-@Slf4j
 public class CasManagementDelegatedConfiguration {
 
     @Autowired

@@ -7,7 +7,6 @@ import org.apereo.cas.mgmt.factory.VersionControlManagerFactory;
 import org.apereo.cas.notifications.CommunicationsManager;
 import org.apereo.cas.services.ServicesManager;
 
-import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -30,7 +29,6 @@ import static java.util.stream.Collectors.toList;
  */
 @RestController("casManagementRegisterController")
 @RequestMapping(path = "api/register", produces = MediaType.APPLICATION_JSON_VALUE)
-@Slf4j
 public class RegisterController extends BaseRegisterController {
 
     public RegisterController(final VersionControlManagerFactory managerFactory,

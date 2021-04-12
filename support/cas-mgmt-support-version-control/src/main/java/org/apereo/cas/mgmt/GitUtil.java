@@ -53,13 +53,14 @@ import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.time.Instant;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
@@ -602,7 +603,7 @@ public class GitUtil implements AutoCloseable {
     }
 
     private static String formatCommitTime(final int ctime) {
-        return LocalDateTime.ofInstant(new Date(ctime * 1000L).toInstant(),
+        return LocalDateTime.ofInstant(Instant.ofEpochMilli(ctime * 1000L),
             ZoneId.systemDefault())
             .format(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
     }
@@ -642,7 +643,7 @@ public class GitUtil implements AutoCloseable {
      * @throws IOException - failed
      */
     public void markAsSubmitted(final RevObject c) throws GitAPIException, IOException {
-        appendNote(c, "SUBMITTED on " + new Date().toString() + "\n    ");
+        appendNote(c, "SUBMITTED on " + LocalDate.now(ZoneId.systemDefault()) + "\n    ");
     }
 
 
@@ -1055,7 +1056,7 @@ public class GitUtil implements AutoCloseable {
     public void markAsReverted(final String branch, final CasUserProfile user) throws GitAPIException, IOException {
         val revWalk = new RevWalk(git.getRepository());
         val com = revWalk.parseCommit(git.getRepository().resolve(branch));
-        val msg = "REVERTED by " + user.getId() + " on " + new Date().toString() + "\n    ";
+        val msg = "REVERTED by " + user.getId() + " on " + LocalDate.now(ZoneId.systemDefault()) + "\n    ";
         appendNote(com, msg);
     }
 

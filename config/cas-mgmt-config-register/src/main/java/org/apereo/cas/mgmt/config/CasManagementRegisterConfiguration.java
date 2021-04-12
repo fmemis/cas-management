@@ -12,7 +12,6 @@ import org.apereo.cas.notifications.CommunicationsManager;
 import org.apereo.cas.services.ServicesManager;
 import org.apereo.cas.util.CollectionUtils;
 
-import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +34,6 @@ import java.nio.charset.StandardCharsets;
 @ConditionalOnProperty(prefix = "mgmt.register", name = "enabled", havingValue = "true")
 @Configuration("casManagementRegisterConfiguration")
 @EnableConfigurationProperties({CasConfigurationProperties.class, CasManagementConfigurationProperties.class})
-@Slf4j
 public class CasManagementRegisterConfiguration {
 
     @Autowired
@@ -82,7 +80,6 @@ public class CasManagementRegisterConfiguration {
 
     @Bean
     public RegisterController registerController() {
-        LOGGER.error("EMAIL MANAGER = " + communicationsManager.getIfAvailable());
         return new RegisterController(
                 managerFactory.getIfAvailable(),
                 managementProperties,

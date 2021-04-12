@@ -1,7 +1,6 @@
 package org.apereo.cas.mgmt;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,7 +17,6 @@ import java.util.HashMap;
  */
 @Controller("registerViewController")
 @RequiredArgsConstructor
-@Slf4j
 public class RegisterViewController {
 
     private static final String STATUS = "status";

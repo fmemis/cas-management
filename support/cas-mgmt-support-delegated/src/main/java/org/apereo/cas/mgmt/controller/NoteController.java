@@ -7,7 +7,6 @@ import org.apereo.cas.mgmt.factory.RepositoryFactory;
 
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
-import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -21,7 +20,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletResponse;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.ZoneId;
 
 /**
  * Controller for handling note requests.
@@ -32,7 +32,6 @@ import java.util.Date;
 @RestController("noteController")
 @RequestMapping(path = "api/note", produces = MediaType.APPLICATION_JSON_VALUE)
 @RequiredArgsConstructor
-@Slf4j
 public class NoteController {
 
     private final RepositoryFactory repositoryFactory;
@@ -68,7 +67,7 @@ public class NoteController {
         val user = CasUserProfile.from(authentication);
         try (GitUtil git = repositoryFactory.masterRepository()) {
             val com = git.getCommit(cnote.getId());
-            val msg = user.getId() + " - " + new Date().toString() + " : \n    "
+            val msg = user.getId() + " - " + LocalDate.now(ZoneId.systemDefault()) + " : \n    "
                     + cnote.getText().replaceAll("\\n", "\n    ");
             git.appendNote(com, msg);
         }
