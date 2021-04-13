@@ -2,7 +2,9 @@ description "Apereo CAS Management Config Audit"
 
 dependencies {
     implementation libraries.pac4jcore
-    implementation libraries.casServer.audit
+    api "org.apereo.cas:cas-server-core-audit-api"
+    api "org.apereo.cas:cas-server-core-util-api"
+    //implementation libraries.casServer.audit
 
     implementation project(":core:cas-mgmt-core-audit")
 }

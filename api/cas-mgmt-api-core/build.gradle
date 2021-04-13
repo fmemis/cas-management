@@ -2,11 +2,21 @@ description "Apereo CAS Management API Core"
 
 dependencies {
     api libraries.pac4jcore
-    api libraries.casServer.core
-    api libraries.casServer.services
-    api libraries.casServer.personDirectory
-    api libraries.casServer.oauth
-    api libraries.casServer.authentication
+    api "org.apereo.cas:cas-server-core-services-api"
+    api "org.apereo.cas:cas-server-core-authentication-attributes"
+    api "org.apereo.cas:cas-server-support-oauth-api"
+    api "org.apereo.cas:cas-server-support-oidc-core"
+    api "org.apereo.cas:cas-server-support-person-directory"
+    api "org.apereo.cas:cas-server-core-util-api"
+    api "org.apereo.cas:cas-server-support-grouper-core"
+    api "org.apereo.cas:cas-server-support-oidc-services"
+    api "org.apereo.cas:cas-server-support-ws-idp-api"
+
+    //api libraries.casServer.core
+    //api libraries.casServer.services
+    //api libraries.casServer.personDirectory
+    //api libraries.casServer.oauth
+    //api libraries.casServer.authentication
     api libraries.git
     api libraries.opensaml
 

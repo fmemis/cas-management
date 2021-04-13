@@ -12,6 +12,10 @@ buildscript {
         maven {
             url "https://maven.eveoh.nl/content/repositories/releases"
         }
+        maven {
+            url 'https://oss.sonatype.org/content/repositories/snapshots'
+            mavenContent { snapshotsOnly() }
+        }
         gradlePluginPortal()
     }
 
@@ -21,6 +25,7 @@ buildscript {
         classpath "com.github.jk1:gradle-license-report:$gradleLicenseVersion"
         classpath "org.springframework.boot:spring-boot-gradle-plugin:$springBootVersion"
         classpath "gradle.plugin.com.gorylenko.gradle-git-properties:gradle-git-properties:$gradleGitVersion"
+        classpath "io.freefair.gradle:maven-plugin:${project.gradleMavenPluginVersion}"
         classpath "io.franzbecker:gradle-lombok:$gradleLombokVersion"
         classpath "com.github.ben-manes:gradle-versions-plugin:$gradleDependencyVersionsVersion"
 
@@ -139,11 +144,14 @@ dependencyCheck {
     }
 }
 
+
+
 allprojects {
     apply plugin: "idea"
     apply plugin: "eclipse"
     apply plugin: "java-library"
     apply plugin: "jacoco"
+    apply plugin: "io.spring.dependency-management"
 
     if (gradle.startParameter.taskNames.any {task -> task.equalsIgnoreCase("install") }) {
         apply plugin: "maven"
@@ -198,6 +206,10 @@ allprojects {
             url "$sonatypeReleasesRepositoryUrl"
             mavenContent { releasesOnly() }
         }
+        maven {
+            url 'https://oss.sonatype.org/content/repositories/snapshots'
+            mavenContent { snapshotsOnly() }
+        }
     }
 
     javadoc {
@@ -206,8 +218,14 @@ allprojects {
         excludes = ['**/generated/**']
     }
 
-
+    dependencyManagement {
+        imports {
+            mavenBom "org.apereo.cas:cas-server-support-bom:$casVersion"
+        }
+    }
 }
+
+
 
 subprojects {
     task dependencyCheckAnalyze(type: org.owasp.dependencycheck.gradle.tasks.Analyze) {
@@ -524,8 +542,9 @@ subprojects {
     }
     checkLicense.finalizedBy outputDependenciesWithoutLicense
 
-    dependencies {
 
+
+    dependencies {
         implementation libraries.aspectj
         implementation libraries.validationapi
 
@@ -548,9 +567,9 @@ subprojects {
             errorprone "com.google.errorprone:error_prone_core:$errorProneVersion"
             errorproneJavac "com.google.errorprone:javac:$errorproneJavacVersion"
         }
-        testImplementation libraries.tests
-        testImplementation libraries.log4j
-        compileOnlyApi  libraries.spotbugsannotations
+       testImplementation libraries.tests
+       testImplementation libraries.log4j
+       compileOnlyApi  libraries.spotbugsannotations
     }
 }
 

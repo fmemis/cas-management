@@ -32,7 +32,7 @@ if (!Boolean.getBoolean("skipClientBuild")) {
 
 dependencies {
 
-    implementation "org.apereo.cas:cas-server-core-configuration:$casVersion"
+    implementation "org.apereo.cas:cas-server-core-configuration"
     implementation project(":config:cas-mgmt-config-audit")
     implementation project(":config:cas-mgmt-config-authentication")
     implementation project(":config:cas-mgmt-config-authz")
@@ -48,7 +48,7 @@ dependencies {
     implementation project(":config:cas-mgmt-config-dashboard")
     implementation project(":config:cas-mgmt-config-submissions")
 
-    implementation libraries.nimbus
+    //implementation libraries.nimbus
     //implementation libraries.cassecurityfilter
     
 }

@@ -1,6 +1,8 @@
 description "Aperep CAS Management API Configuration"
 
 dependencies {
-        api libraries.casServer.configuration
-        api libraries.casServer.utilApi
+    //api "org.apereo.cas:cas-server-core-api-configuration-model"
+    implementation "org.apereo.cas:cas-server-core-util-api"
+    api libraries.configuration
+       // api libraries.casServer.utilApi
 }

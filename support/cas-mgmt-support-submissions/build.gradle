@@ -3,12 +3,14 @@ description "Apereo CAS Management Support Submissions"
 
 dependencies {
     implementation libraries.git
-    implementation libraries.casServer.saml
+    //implementation libraries.casServer.saml
     
     api project(":api:cas-mgmt-api-core")
     api project(":api:cas-mgmt-api-version-control")
     api project(":api:cas-mgmt-api-delegated")
-    
+
+    implementation "org.apereo.cas:cas-server-core-notifications"
+    implementation "org.apereo.cas:cas-server-support-saml-idp-core"
     implementation project(":support:cas-mgmt-support-version-control")
     implementation project(":support:cas-mgmt-support-delegated")
     implementation project(":core:cas-mgmt-core-authentication")

@@ -1,15 +1,22 @@
 description "Apereo CAS Management Core"
 
 dependencies {
-    api libraries.casServer.oauth
-    api libraries.casServer.saml
+    api "org.apereo.cas:cas-server-core-authentication-api"
+    //api libraries.casServer.oauth
+   // api libraries.casServer.saml
     api project(":api:cas-mgmt-api-core")
     api project(":api:cas-mgmt-api-configuration")
 
-    implementation libraries.casServer.discovery
-    implementation libraries.casServer.saml
-    implementation libraries.casServer.ldap
-    implementation libraries.casServer.services
+    implementation "org.apereo.cas:cas-server-core-authentication-api"
+    implementation "org.apereo.cas:cas-server-support-oauth-services"
+    implementation "org.apereo.cas:cas-server-support-saml-idp-core"
+    implementation "org.apereo.cas:cas-server-support-discovery-profile"
+    implementation "org.apereo.cas:cas-server-support-saml-idp-web"
+    implementation "org.apereo.cas:cas-server-core-services-registry"
+    //implementation libraries.casServer.discovery
+    //implementation libraries.casServer.saml
+    //implementation libraries.casServer.ldap
+    //implementation libraries.casServer.services
     implementation libraries.git
     implementation libraries.opensaml
     implementation project(":core:cas-mgmt-core-util")

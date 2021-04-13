@@ -2,12 +2,19 @@ description "Apereo CAS Management Webapp Init"
 
 dependencies {
     api project(":api:cas-mgmt-api-configuration")
-    
-    implementation libraries.casServer.util
-    implementation libraries.casServer.discovery
-    implementation libraries.casServer.personDirectory
-    implementation libraries.casServer.initTomcat
-    implementation libraries.casServer.configuration
+
+    implementation "org.apereo.cas:cas-server-core-authentication"
+    implementation "org.apereo.cas:cas-server-core-services"
+    implementation "org.apereo.cas:cas-server-core-tickets"
+    implementation "org.apereo.cas:cas-server-support-discovery-profile"
+    implementation "org.apereo.cas:cas-server-support-person-directory"
+    implementation "org.apereo.cas:cas-server-core-util-api"
+    implementation "org.apereo.cas:cas-server-webapp-init-tomcat"
+    //implementation libraries.casServer.util
+    //implementation libraries.casServer.discovery
+    //implementation libraries.casServer.personDirectory
+    //implementation libraries.casServer.initTomcat
+    implementation libraries.configuration
     implementation project(":core:cas-mgmt-core-util")
 
 }

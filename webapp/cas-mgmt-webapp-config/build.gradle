@@ -4,10 +4,10 @@ dependencies {
     api libraries.pac4jcore
     api libraries.pac4jcas
     implementation libraries.thymeleaf
-    implementation libraries.casServer.authentication
-    implementation libraries.casServer.oidc
+    //implementation libraries.casServer.authentication
+    //implementation libraries.casServer.oidc
     implementation libraries.springboot
-    
+    implementation "org.apereo.cas:cas-server-core-services-registry"
     api project(":api:cas-mgmt-api-configuration")
     
     implementation project(":core:cas-mgmt-core-authentication")

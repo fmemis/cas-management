@@ -5,7 +5,7 @@ dependencies {
     api project(":api:cas-mgmt-api-core")
     
     api libraries.pac4jcore
-    implementation libraries.casServer.utilApi
+    //implementation libraries.casServer.utilApi
     
     implementation project(":core:cas-mgmt-core-util")
 }

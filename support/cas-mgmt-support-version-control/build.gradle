@@ -6,11 +6,13 @@ dependencies {
     
     implementation libraries.git
     implementation libraries.pac4jcore
-    implementation libraries.casServer.versionControl
-    implementation libraries.casServer.services
-    implementation libraries.casServer.oauth
-    implementation libraries.casServer.saml
+    //implementation libraries.casServer.versionControl
+    //implementation libraries.casServer.services
+    //implementation libraries.casServer.oauth
+    //implementation libraries.casServer.saml
 
+    implementation "org.apereo.cas:cas-server-core-services-registry"
+    implementation "org.apereo.cas:cas-server-support-json-service-registry"
     implementation project(":core:cas-mgmt-core-authentication")
 
     implementation project(":core:cas-mgmt-core")

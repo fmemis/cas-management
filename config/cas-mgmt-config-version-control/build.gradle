@@ -6,7 +6,7 @@ dependencies {
     api project(":api:cas-mgmt-api-configuration")
     
     implementation libraries.git
-    implementation libraries.casServer.versionControl
+    implementation "org.apereo.cas:cas-server-core-services-registry"
    
     implementation project(":support:cas-mgmt-support-version-control")
     implementation project(":core:cas-mgmt-core-authentication")
